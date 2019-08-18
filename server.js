@@ -20,26 +20,14 @@ app.listen(port, () => {
 
 router.route('/').get((req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
-  // using the Item schema, find anything that matches it
+  // get all items in db
   Ward.find({}, (err, items) => {
-    // if there is an error
     if (err) {
-      res
-        // the response's status should be 400
-        .status(400)
-        // and what we should get back from this function
-        .send({
-          // is an error message
-          error: err
-        });
-      // then, stop running this code
+      res.status(400).send({
+        error: err
+      });
       return;
     }
-    // if there is no error
-    res
-      // the response's status should be 200
-      .status(200)
-      // and we should get back our data from this function
-      .send(items);
+    res.status(200).send(items);
   });
 });
